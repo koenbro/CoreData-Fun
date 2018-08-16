@@ -11,12 +11,22 @@ import CoreData
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
+    
     var window: UIWindow?
-
-
+    var container: NSPersistentContainer!
+    var context: NSManagedObjectContext!
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        container = NSPersistentContainer(name: "CoreData_Fun")
+        container.loadPersistentStores(completionHandler: {
+            (storeDescription, error) in
+            if error == nil {
+                self.context = self.container.viewContext
+            } else {
+                print("Error declaring the Persistent Container.")
+            }
+        })
         return true
     }
 
